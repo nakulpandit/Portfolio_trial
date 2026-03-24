@@ -48,9 +48,9 @@ export default function Modal() {
               {modalContent.title || modalContent.name}
             </h2>
 
-            {/* Subtitle */}
-            {(modalContent.year || modalContent.category) && (
-              <div className="flex items-center gap-2 mb-4">
+            {/* Subtitle row */}
+            {(modalContent.year || modalContent.category || modalContent.domain) && (
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
                 {modalContent.year && (
                   <span className="text-sm px-3 py-0.5 rounded-full bg-white/10 text-white/50">
                     {modalContent.year}
@@ -61,27 +61,63 @@ export default function Modal() {
                     {modalContent.category}
                   </span>
                 )}
+                {modalContent.domain && (
+                  <span className="text-sm px-3 py-0.5 rounded-full bg-[var(--color-nebula-blue)]/20 text-[var(--color-nebula-blue)]">
+                    {modalContent.domain}
+                  </span>
+                )}
               </div>
+            )}
+
+            {/* Authors */}
+            {modalContent.authors && (
+              <p className="text-sm text-white/40 italic mb-3">
+                {modalContent.authors}
+              </p>
             )}
 
             {/* Divider */}
             <div className="h-px bg-white/10 mb-4" />
 
-            {/* Description / Summary */}
-            <div className="mb-5">
-              <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">
-                {modalContent.summary ? 'Summary' : 'Description'}
-              </h3>
-              <p className="text-sm text-white/70 leading-relaxed">
-                {modalContent.description || modalContent.summary}
-              </p>
-            </div>
-
-            {/* Detailed info */}
-            {modalContent.summary && modalContent.description && (
+            {/* Detailed Description (for projects) */}
+            {modalContent.detailedDescription && (
               <div className="mb-5">
-                <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Details</h3>
-                <p className="text-sm text-white/60 leading-relaxed">{modalContent.summary}</p>
+                <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Detailed Description</h3>
+                <p className="text-sm text-white/70 leading-relaxed">{modalContent.detailedDescription}</p>
+              </div>
+            )}
+
+            {/* Simple Summary / ELI5 (for research) */}
+            {modalContent.simpleSummary && (
+              <div className="mb-5">
+                <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">
+                  🧠 Simple Explanation
+                </h3>
+                <div className="text-sm text-white/70 bg-[var(--color-nebula-purple)]/10 rounded-lg p-4 leading-relaxed border border-[var(--color-nebula-purple)]/20">
+                  {modalContent.simpleSummary}
+                </div>
+              </div>
+            )}
+
+            {/* Deep Summary (for research) */}
+            {modalContent.deepSummary && (
+              <div className="mb-5">
+                <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">
+                  🔬 Technical Deep Dive
+                </h3>
+                <p className="text-sm text-white/60 leading-relaxed">{modalContent.deepSummary}</p>
+              </div>
+            )}
+
+            {/* Fallback description */}
+            {!modalContent.detailedDescription && !modalContent.simpleSummary && (modalContent.description || modalContent.summary) && (
+              <div className="mb-5">
+                <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-2">
+                  {modalContent.summary ? 'Summary' : 'Description'}
+                </h3>
+                <p className="text-sm text-white/70 leading-relaxed">
+                  {modalContent.description || modalContent.summary}
+                </p>
               </div>
             )}
 
@@ -129,19 +165,33 @@ export default function Modal() {
               </div>
             )}
 
-            {/* Link */}
-            {modalContent.link && (
-              <a
-                href={modalContent.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-2 text-sm px-5 py-2 rounded-full bg-[var(--color-nebula-purple)]/20
-                           text-[var(--color-nebula-purple)] hover:bg-[var(--color-nebula-purple)]/30 transition-all
-                           border border-[var(--color-nebula-purple)]/30"
-              >
-                View Resource →
-              </a>
-            )}
+            {/* Action buttons */}
+            <div className="flex gap-3 mt-4">
+              {modalContent.github && (
+                <a
+                  href={modalContent.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-sm px-5 py-2 rounded-full bg-white/5
+                             text-white/70 hover:bg-white/10 transition-all
+                             border border-white/15"
+                >
+                  ⭐ View on GitHub
+                </a>
+              )}
+              {modalContent.link && (
+                <a
+                  href={modalContent.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-sm px-5 py-2 rounded-full bg-[var(--color-nebula-purple)]/20
+                             text-[var(--color-nebula-purple)] hover:bg-[var(--color-nebula-purple)]/30 transition-all
+                             border border-[var(--color-nebula-purple)]/30"
+                >
+                  View Resource →
+                </a>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       )}

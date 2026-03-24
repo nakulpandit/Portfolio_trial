@@ -34,25 +34,37 @@ export default function InfoPanel() {
               {selectedItem.title}
             </h2>
 
-            {/* Year / Category */}
-            {(selectedItem.year || selectedItem.category) && (
-              <div className="flex items-center gap-2 mb-3">
-                {selectedItem.year && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/50">
-                    {selectedItem.year}
-                  </span>
-                )}
-                {selectedItem.category && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-nebula-purple)]/20 text-[var(--color-nebula-purple)]">
-                    {selectedItem.category}
-                  </span>
+            {/* Year / Category / Authors */}
+            {(selectedItem.year || selectedItem.category || selectedItem.authors) && (
+              <div className="mb-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  {selectedItem.year && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/50">
+                      {selectedItem.year}
+                    </span>
+                  )}
+                  {selectedItem.category && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-nebula-purple)]/20 text-[var(--color-nebula-purple)]">
+                      {selectedItem.category}
+                    </span>
+                  )}
+                  {selectedItem.domain && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-nebula-blue)]/20 text-[var(--color-nebula-blue)]">
+                      {selectedItem.domain}
+                    </span>
+                  )}
+                </div>
+                {selectedItem.authors && (
+                  <p className="text-xs text-white/40 mt-1.5 italic leading-relaxed">
+                    {selectedItem.authors}
+                  </p>
                 )}
               </div>
             )}
 
             {/* Description */}
             <p className="text-sm text-white/60 leading-relaxed mb-4">
-              {selectedItem.description || selectedItem.summary}
+              {selectedItem.shortDescription || selectedItem.description || selectedItem.summary || selectedItem.simpleSummary}
             </p>
 
             {/* Tech Stack */}
@@ -100,15 +112,30 @@ export default function InfoPanel() {
             {/* Resume download */}
             {selectedItem.isResume && (
               <div className="mb-4">
-                <button className="w-full glass px-4 py-3 text-sm text-white/80 hover:bg-white/10 
-                                   transition-all border border-[var(--color-star-gold)]/30 cursor-pointer">
+                <a
+                  href="/resume/Nakul Resume.pdf"
+                  download="Nakul_Pandit_Resume.pdf"
+                  className="block w-full glass px-4 py-3 text-sm text-center text-white/80 hover:bg-white/10 
+                                   transition-all border border-[var(--color-star-gold)]/30 cursor-pointer"
+                >
                   📄 Download Resume (PDF)
-                </button>
+                </a>
               </div>
             )}
 
             {/* Actions */}
             <div className="flex gap-2">
+              {selectedItem.github && (
+                <a
+                  href={selectedItem.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center text-xs py-2 rounded bg-white/5 text-white/70 
+                             hover:bg-white/10 transition-all border border-white/10"
+                >
+                  ⭐ GitHub
+                </a>
+              )}
               {selectedItem.link && (
                 <a
                   href={selectedItem.link}
@@ -120,7 +147,7 @@ export default function InfoPanel() {
                   View More →
                 </a>
               )}
-              {(selectedItem.summary || selectedItem.keyConcepts) && (
+              {(selectedItem.detailedDescription || selectedItem.deepSummary || selectedItem.keyConcepts) && (
                 <button
                   onClick={() => openModal(selectedItem)}
                   className="flex-1 text-center text-xs py-2 rounded bg-white/5 text-white/60 

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from 'react'
+import { useRef, useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Text } from '@react-three/drei'
 import * as THREE from 'three'
@@ -14,6 +14,11 @@ import useStore from '../store/useStore'
 import galaxies from '../data/galaxies'
 import projects from '../data/projects'
 import researchDomains from '../data/research'
+import skills from '../data/skills'
+import about from '../data/about'
+import education from '../data/education'
+
+
 
 function GalaxyCamera() {
   const { camera } = useThree()
@@ -52,7 +57,7 @@ function ProjectsGalaxyContent() {
         fontSize={1}
         color="#7b2ff7"
         anchorX="center"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
+
       >
         PROJECTS GALAXY
       </Text>
@@ -134,7 +139,7 @@ function ResearchGalaxyContent() {
             fontSize={0.4}
             color={domain.color}
             anchorX="center"
-            font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
+    
           >
             {domain.name}
           </Text>
@@ -174,7 +179,7 @@ function ResearchGalaxyContent() {
         fontSize={1}
         color="#e040fb"
         anchorX="center"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
+
       >
         RESEARCH GALAXY
       </Text>
@@ -184,12 +189,6 @@ function ResearchGalaxyContent() {
 
 // --- About Galaxy Interior ---
 function AboutGalaxyContent() {
-  const aboutData = [
-    { name: 'Background', title: 'Background', description: 'A passionate developer and researcher with deep interests in AI, space tech, and creative engineering. Currently pursuing advanced studies in computer science.', color: '#4fc3f7', orbit: 3, speed: 0.8, size: 0.5 },
-    { name: 'Skills Overview', title: 'Skills Overview', description: 'Proficient in Python, JavaScript, C++, and Rust. Experienced with ML frameworks, cloud infrastructure, and full-stack web development.', color: '#00e676', orbit: 5, speed: 0.5, size: 0.6 },
-    { name: 'Goals', title: 'Goals', description: 'To push the boundaries of AI research while building products that make a meaningful impact. Aspiring to work at the intersection of space and artificial intelligence.', color: '#ffd54f', orbit: 7, speed: 0.3, size: 0.45 },
-  ]
-
   return (
     <group>
       {/* Central sun */}
@@ -202,8 +201,8 @@ function AboutGalaxyContent() {
         <meshBasicMaterial color="#ffab40" transparent opacity={0.15} />
       </mesh>
 
-      {/* Orbiting planets */}
-      {aboutData.map((item, i) => (
+      {/* Orbiting planets from data */}
+      {about.planets.map((item, i) => (
         <Planet
           key={i}
           data={item}
@@ -219,7 +218,7 @@ function AboutGalaxyContent() {
         fontSize={1}
         color="#4fc3f7"
         anchorX="center"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
+
       >
         ABOUT ME
       </Text>
@@ -229,19 +228,6 @@ function AboutGalaxyContent() {
 
 // --- Skills Galaxy Interior ---
 function SkillsGalaxyContent() {
-  const skills = [
-    { id: 's1', title: 'Python', proficiency: 95, experience: 5, color: '#ffd54f', position: [2, 1, 0] },
-    { id: 's2', title: 'JavaScript', proficiency: 90, experience: 4, color: '#ffd54f', position: [-2, 0, 2] },
-    { id: 's3', title: 'React', proficiency: 88, experience: 4, color: '#4fc3f7', position: [1, -2, -1] },
-    { id: 's4', title: 'PyTorch', proficiency: 85, experience: 3, color: '#e040fb', position: [-1, 2, -2] },
-    { id: 's5', title: 'Three.js', proficiency: 75, experience: 2, color: '#00e676', position: [3, -1, 1] },
-    { id: 's6', title: 'Node.js', proficiency: 82, experience: 3, color: '#00e676', position: [-3, -1, 0] },
-    { id: 's7', title: 'Docker', proficiency: 80, experience: 3, color: '#4fc3f7', position: [0, 3, 2] },
-    { id: 's8', title: 'AWS', proficiency: 78, experience: 2, color: '#ffab40', position: [2, -3, -2] },
-    { id: 's9', title: 'C++', proficiency: 70, experience: 3, color: '#ff5252', position: [-2, 1, 3] },
-    { id: 's10', title: 'Rust', proficiency: 60, experience: 1, color: '#ff5252', position: [0, -1, -3] },
-  ]
-
   return (
     <group>
       {skills.map((skill) => (
@@ -249,7 +235,8 @@ function SkillsGalaxyContent() {
           key={skill.id}
           data={{
             ...skill,
-            description: `Proficiency: ${skill.proficiency}% | Experience: ${skill.experience} years`,
+            title: skill.name,
+            description: `Proficiency: ${skill.level}% | Category: ${skill.category}`,
           }}
           galaxyColor="#00e676"
         />
@@ -260,7 +247,7 @@ function SkillsGalaxyContent() {
         fontSize={1}
         color="#00e676"
         anchorX="center"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
+
       >
         SKILLS NEBULA
       </Text>
@@ -270,13 +257,6 @@ function SkillsGalaxyContent() {
 
 // --- Education Wormhole ---
 function EducationGalaxyContent() {
-  const milestones = [
-    { id: 'e1', title: 'High School Diploma', year: '2018', description: 'Graduated with honors. Focus on mathematics and physics.', color: '#ffab40', position: [0, -4, 0] },
-    { id: 'e2', title: 'B.S. Computer Science', year: '2022', description: 'Graduated from university with specialization in AI and algorithms.', color: '#ffab40', position: [0, -1, 0] },
-    { id: 'e3', title: 'Research Internship', year: '2023', description: 'Worked on federated learning at a national lab.', color: '#ffd54f', position: [0, 2, 0] },
-    { id: 'e4', title: 'M.S. Computer Science', year: 'Present', description: 'Currently pursuing graduate studies focusing on AI + Space Technology.', color: '#ffd54f', position: [0, 5, 0] },
-  ]
-
   return (
     <group>
       {/* Timeline line */}
@@ -292,7 +272,7 @@ function EducationGalaxyContent() {
         <lineBasicMaterial color="#ffab40" transparent opacity={0.3} />
       </line>
 
-      {milestones.map((m) => (
+      {education.map((m) => (
         <Star key={m.id} data={m} galaxyColor="#ffab40" />
       ))}
 
@@ -301,7 +281,7 @@ function EducationGalaxyContent() {
         fontSize={1}
         color="#ffab40"
         anchorX="center"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
+
       >
         EDUCATION TIMELINE
       </Text>
@@ -344,7 +324,7 @@ function ResumeGalaxyContent() {
         fontSize={1}
         color="#ffd54f"
         anchorX="center"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
+
       >
         RESUME STATION
       </Text>
@@ -355,10 +335,9 @@ function ResumeGalaxyContent() {
 // --- Contact Galaxy ---
 function ContactGalaxyContent() {
   const contacts = [
-    { id: 'c1', title: 'Email', description: 'nakul@example.com', position: [3, 0, 0], color: '#ff5252' },
-    { id: 'c2', title: 'GitHub', description: 'github.com/nakulpandit', position: [-2, 2, 1], color: '#ff5252' },
-    { id: 'c3', title: 'LinkedIn', description: 'linkedin.com/in/nakulpandit', position: [0, -2, 3], color: '#4fc3f7' },
-    { id: 'c4', title: 'Twitter / X', description: '@nakulpandit', position: [-3, -1, -1], color: '#4fc3f7' },
+    { id: 'c1', title: 'Email', description: 'nakulpandit.dev@gmail.com', position: [3, 0, 0], color: '#ff5252' },
+    { id: 'c2', title: 'GitHub', description: 'github.com/nakulpandit', link: 'https://github.com/nakulpandit', position: [-2, 2, 1], color: '#ff5252' },
+    { id: 'c3', title: 'LinkedIn', description: 'linkedin.com/in/nakulpandit14b12220b', link: 'https://www.linkedin.com/in/nakulpandit14b12220b', position: [0, -2, 3], color: '#4fc3f7' },
   ]
 
   return (
@@ -378,7 +357,6 @@ function ContactGalaxyContent() {
         fontSize={1}
         color="#ff5252"
         anchorX="center"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
       >
         CONTACT SATELLITE
       </Text>

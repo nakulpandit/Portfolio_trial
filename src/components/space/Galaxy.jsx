@@ -116,13 +116,12 @@ export default function Galaxy({ data }) {
 
       {/* Clickable area */}
       <mesh
-        onPointerOver={() => {
+        onPointerOver={(e) => {
+          e.stopPropagation()
           setHovered(true)
-          document.body.style.cursor = 'pointer'
         }}
-        onPointerOut={() => {
+        onPointerOut={(e) => {
           setHovered(false)
-          document.body.style.cursor = 'none'
         }}
         onClick={(e) => {
           e.stopPropagation()
@@ -130,7 +129,7 @@ export default function Galaxy({ data }) {
         }}
       >
         <sphereGeometry args={[size * 0.8, 16, 16]} />
-        <meshBasicMaterial transparent opacity={0} />
+        <meshBasicMaterial transparent opacity={0.01} depthWrite={false} />
       </mesh>
 
       {/* Label */}
@@ -140,7 +139,6 @@ export default function Galaxy({ data }) {
         color={color}
         anchorX="center"
         anchorY="bottom"
-        font="https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2"
         outlineWidth={0.02}
         outlineColor="#000000"
       >
