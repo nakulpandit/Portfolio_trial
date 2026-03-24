@@ -19,7 +19,7 @@ export default function InfoPanel() {
           exit={{ opacity: 0, x: -40 }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
         >
-          <div className="glass p-5 overflow-y-auto max-h-[70vh]">
+          <div className="glass p-6 overflow-y-auto max-h-[70vh] border-white/5 bg-black/40 backdrop-blur-xl">
             {/* Close button */}
             <button
               onClick={clearSelection}
@@ -30,8 +30,8 @@ export default function InfoPanel() {
             </button>
 
             {/* Title */}
-            <h2 className="text-lg font-semibold text-white/90 mb-1 pr-8 glow-text">
-              {selectedItem.isResearch ? 'Academic Review: ' : ''}
+            <h2 className="text-xl font-bold tracking-tight text-white/95 mb-2 pr-8 glow-text">
+              {selectedItem.isResearch ? <span className="text-white/40 font-normal">Academic Review: <br/></span> : ''}
               {selectedItem.title}
             </h2>
 
@@ -50,13 +50,13 @@ export default function InfoPanel() {
                     </span>
                   )}
                   {selectedItem.domain && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-nebula-blue)]/20 text-[var(--color-nebula-blue)]">
+                    <span className="text-[10px] uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-[var(--color-nebula-blue)]/10 text-[var(--color-nebula-blue)] border border-[var(--color-nebula-blue)]/20">
                       {selectedItem.domain}
                     </span>
                   )}
                 </div>
                 {selectedItem.authors && (
-                  <p className="text-xs text-white/40 mt-1.5 italic leading-relaxed">
+                  <p className="text-[11px] text-white/40 mt-3 font-mono leading-relaxed">
                     {selectedItem.authors}
                   </p>
                 )}
@@ -64,7 +64,7 @@ export default function InfoPanel() {
             )}
 
             {/* Description */}
-            <p className="text-sm text-white/60 leading-relaxed mb-4">
+            <p className="text-[13px] text-white/70 leading-relaxed mb-6 font-light">
               {selectedItem.shortDescription || selectedItem.description || selectedItem.summary || selectedItem.simpleSummary}
             </p>
 

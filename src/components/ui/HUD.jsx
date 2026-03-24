@@ -23,7 +23,7 @@ export default function HUD() {
         >
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-[var(--color-nebula-purple)] rounded-full animate-pulse" />
-            <span className="text-xs tracking-[0.15em] uppercase text-white/60">
+            <span className="text-[10px] tracking-[0.2em] uppercase text-white/50 font-medium">
               {currentScene === 'universe' ? 'UNIVERSE VIEW' : galaxyData?.label || 'GALAXY'}
             </span>
           </div>
@@ -37,8 +37,8 @@ export default function HUD() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               onClick={exitGalaxy}
-              className="glass px-5 py-2 pointer-events-auto text-sm tracking-[0.1em] uppercase text-white/80
-                         hover:bg-white/10 hover:text-white transition-all cursor-pointer"
+              className="glass px-6 py-2 pointer-events-auto text-[10px] tracking-[0.2em] uppercase text-white/70
+                         hover:bg-white/15 hover:text-white transition-all duration-300 cursor-pointer border-white/10"
             >
               ← Return to Universe
             </motion.button>
@@ -54,7 +54,7 @@ export default function HUD() {
         transition={{ delay: 0.5 }}
       >
         <div className="p-2 h-full relative">
-          <div className="text-[9px] uppercase tracking-[0.15em] text-white/40 mb-1">Radar</div>
+          <div className="text-[9px] uppercase tracking-[0.2em] text-white/30 mb-2 font-mono">Radar</div>
           <div className="relative w-full h-[calc(100%-18px)]">
             {/* Grid */}
             <div className="absolute inset-0 border border-white/5 rounded">
@@ -108,7 +108,7 @@ export default function HUD() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
         >
-          <div className="text-[9px] uppercase tracking-[0.15em] text-white/40">
+          <div className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-mono">
             {currentScene === 'universe' ? 'Click a galaxy to explore' : 'Click objects to inspect • Drag to rotate'}
           </div>
         </motion.div>

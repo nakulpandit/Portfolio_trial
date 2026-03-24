@@ -44,16 +44,10 @@ export default function Cursor() {
       }}
       transition={{ type: 'spring', stiffness: 500, damping: 28, mass: 0.5 }}
     >
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="48" stroke={isHovering ? "#e040fb" : "#4fc3f7"} strokeWidth="2" opacity={isHovering ? "0.8" : "0.3"} />
-        <circle cx="50" cy="50" r="4" fill={isHovering ? "#e040fb" : "#4fc3f7"} />
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+        <circle cx="50" cy="50" r={isHovering ? "45" : "8"} fill={isHovering ? "rgba(255, 255, 255, 0.1)" : "rgba(255, 255, 255, 0.9)"} stroke="rgba(255, 255, 255, 0.9)" strokeWidth={isHovering ? "1" : "0"} transition="all 0.3s ease" />
         {isHovering && (
-          <>
-            <line x1="50" y1="0" x2="50" y2="20" stroke="#e040fb" strokeWidth="2" />
-            <line x1="50" y1="100" x2="50" y2="80" stroke="#e040fb" strokeWidth="2" />
-            <line x1="0" y1="50" x2="20" y2="50" stroke="#e040fb" strokeWidth="2" />
-            <line x1="100" y1="50" x2="80" y2="50" stroke="#e040fb" strokeWidth="2" />
-          </>
+          <circle cx="50" cy="50" r="4" fill="rgba(255,255,255,0.9)" />
         )}
       </svg>
     </motion.div>

@@ -110,11 +110,11 @@ export default function Galaxy({ data }) {
       {/* Core glow sphere */}
       <mesh>
         <sphereGeometry args={[0.4, 16, 16]} />
-        <meshBasicMaterial color={color} transparent opacity={0.8} />
+        <meshBasicMaterial color={color} transparent opacity={hovered ? 1.0 : 0.8} />
       </mesh>
-      <mesh>
+      <mesh scale={hovered ? 1.5 : 1}>
         <sphereGeometry args={[0.7, 16, 16]} />
-        <meshBasicMaterial color={color} transparent opacity={0.2} />
+        <meshBasicMaterial color={color} transparent opacity={hovered ? 0.4 : 0.2} />
       </mesh>
 
       {/* Clickable area (Invisible) */}
