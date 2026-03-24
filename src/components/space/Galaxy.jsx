@@ -42,6 +42,8 @@ export default function Galaxy({ data }) {
   useFrame((state) => {
     if (pointsRef.current) {
       pointsRef.current.material.uniforms.uTime.value = state.clock.elapsedTime
+      // Increase glow intensity if hovered
+      pointsRef.current.material.uniforms.uHover.value = hovered ? 1.0 : 0.0
     }
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.001
@@ -66,6 +68,7 @@ export default function Galaxy({ data }) {
           blending={THREE.AdditiveBlending}
           uniforms={{
             uTime: { value: 0 },
+            uHover: { value: 0 },
             uSize: { value: size },
             uColor: { value: colorObj },
             uCoreColor: { value: coreColor },
@@ -114,22 +117,25 @@ export default function Galaxy({ data }) {
         <meshBasicMaterial color={color} transparent opacity={0.2} />
       </mesh>
 
-      {/* Clickable area */}
+      {/* Clickable area (Invisible) */}
       <mesh
         onPointerOver={(e) => {
           e.stopPropagation()
           setHovered(true)
+          document.body.style.cursor = 'pointer'
         }}
         onPointerOut={(e) => {
           setHovered(false)
+          document.body.style.cursor = 'auto'
         }}
         onClick={(e) => {
           e.stopPropagation()
+          document.body.style.cursor = 'auto'
           enterGalaxy(id)
         }}
       >
-        <sphereGeometry args={[size * 0.8, 16, 16]} />
-        <meshBasicMaterial transparent opacity={0.01} depthWrite={false} />
+        <sphereGeometry args={[size * 1.5, 16, 16]} />
+        <meshBasicMaterial transparent opacity={0.0} depthWrite={false} color="#ffffff" />
       </mesh>
 
       {/* Label */}

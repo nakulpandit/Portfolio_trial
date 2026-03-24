@@ -5,6 +5,7 @@ import LandingScene from './scenes/LandingScene'
 import UniverseScene from './scenes/UniverseScene'
 import GalaxyScene from './scenes/GalaxyScene'
 import Loader from './components/ui/Loader'
+import Cursor from './components/ui/Cursor'
 import { Component } from 'react'
 
 // Error boundary to catch Three.js rendering failures
@@ -95,6 +96,7 @@ export default function App() {
           )}
         </AnimatePresence>
       </ErrorBoundary>
+      <Cursor />
     </div>
   )
 }

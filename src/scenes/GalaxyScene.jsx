@@ -6,7 +6,6 @@ import Starfield from '../components/space/Starfield'
 import Star from '../components/space/Star'
 import Planet from '../components/space/Planet'
 import WarpEffect from '../components/space/WarpEffect'
-import CursorShip from '../components/space/CursorShip'
 import HUD from '../components/ui/HUD'
 import InfoPanel from '../components/ui/InfoPanel'
 import Modal from '../components/ui/Modal'
@@ -388,7 +387,6 @@ function SceneContent() {
       <Starfield />
       <GalaxyContent />
       <WarpEffect />
-      <CursorShip />
     </>
   )
 }

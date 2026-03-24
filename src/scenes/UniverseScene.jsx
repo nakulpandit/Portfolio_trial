@@ -5,7 +5,6 @@ import * as THREE from 'three'
 import Starfield from '../components/space/Starfield'
 import Universe from '../components/space/Universe'
 import WarpEffect from '../components/space/WarpEffect'
-import CursorShip from '../components/space/CursorShip'
 import HUD from '../components/ui/HUD'
 import useStore from '../store/useStore'
 
@@ -14,15 +13,23 @@ function CameraController() {
   const currentGalaxy = useStore((s) => s.currentGalaxy)
   const currentScene = useStore((s) => s.currentScene)
   const targetPos = useRef(new THREE.Vector3(0, 5, 50))
+  const initialized = useRef(false)
 
   useEffect(() => {
     if (currentScene === 'universe' && !currentGalaxy) {
-      targetPos.current.set(0, 5, 50)
+      targetPos.current.set(0, 0, 70) // Move back slightly to see all the new depths
+      initialized.current = false
     }
   }, [currentScene, currentGalaxy])
 
   useFrame(() => {
-    camera.position.lerp(targetPos.current, 0.03)
+    // Only lerp on initial entry, then let OrbitControls take over completely
+    if (!initialized.current) {
+      camera.position.lerp(targetPos.current, 0.03)
+      if (camera.position.distanceTo(targetPos.current) < 0.5) {
+        initialized.current = true
+      }
+    }
   })
 
   return null
@@ -37,7 +44,6 @@ function SceneContent() {
       <Starfield />
       <Universe />
       <WarpEffect />
-      <CursorShip />
     </>
   )
 }
@@ -56,7 +62,8 @@ export default function UniverseScene() {
       >
         <SceneContent />
         <OrbitControls
-          enablePan
+          makeDefault
+          enablePan={false}
           enableZoom
           enableRotate
           maxDistance={120}

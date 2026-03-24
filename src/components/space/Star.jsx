@@ -42,7 +42,7 @@ export default function Star({ data, galaxyColor }) {
         }}
         onPointerOut={() => {
           setHovered(false)
-          document.body.style.cursor = 'none'
+          document.body.style.cursor = 'auto'
         }}
         onClick={(e) => {
           e.stopPropagation()

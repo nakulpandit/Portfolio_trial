@@ -12,8 +12,8 @@ export default function LandingScene() {
   useEffect(() => {
     const timers = []
     timers.push(setTimeout(() => setPhase('stars'), 500))
-    timers.push(setTimeout(() => setPhase('title'), 1500))
-    timers.push(setTimeout(() => setPhase('ready'), 2500))
+    // We go straight to 'ready' because 'ready' handles the title animation sequentially
+    timers.push(setTimeout(() => setPhase('ready'), 1500))
     return () => timers.forEach(clearTimeout)
   }, [])
 
@@ -55,47 +55,43 @@ export default function LandingScene() {
       {/* Overlay content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
         <AnimatePresence mode="wait">
-          {phase === 'title' && (
-            <motion.div
-              key="title"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
-            >
-              <h1 className="text-6xl md:text-8xl font-bold glow-text text-white/90 tracking-tight">
-                EXPLORE
-              </h1>
-              <p className="text-lg text-white/40 mt-4 tracking-[0.3em] uppercase">
-                My Universe
-              </p>
-            </motion.div>
-          )}
-
           {phase === 'ready' && (
             <motion.div
-              key="ready"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.5 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
+              key="intro-sequence"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, scale: 1.2 }}
+              transition={{ duration: 0.8 }}
+              className="text-center flex flex-col items-center justify-center"
             >
-              <h1 className="text-5xl md:text-7xl font-bold glow-text text-white/90 mb-8 tracking-tight">
-                EXPLORE MY UNIVERSE
-              </h1>
+              <motion.h1 
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+                className="text-6xl md:text-8xl font-bold glow-text text-white/90 tracking-tight"
+              >
+                EXPLORE
+              </motion.h1>
+              <motion.p 
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                className="text-lg text-white/40 mt-2 mb-12 tracking-[0.3em] uppercase"
+              >
+                My Universe
+              </motion.p>
               <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
                 onClick={handleLaunch}
-                className="glass px-10 py-4 text-lg tracking-[0.2em] uppercase text-white/90
+                className="glass px-12 py-4 text-sm md:text-lg tracking-[0.2em] uppercase text-white/90
                            hover:bg-white/10 transition-all duration-300 
                            border border-[var(--color-nebula-purple)]/50 rounded-full"
                 whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(123, 47, 247, 0.5)' }}
                 whileTap={{ scale: 0.95 }}
-                animate={{ boxShadow: ['0 0 10px rgba(123,47,247,0.3)', '0 0 30px rgba(123,47,247,0.6)', '0 0 10px rgba(123,47,247,0.3)'] }}
-                transition={{ boxShadow: { duration: 2, repeat: Infinity } }}
               >
-                🚀 Launch
+                🚀 Launch Sequence
               </motion.button>
             </motion.div>
           )}
@@ -118,7 +114,7 @@ export default function LandingScene() {
                 {countdown === 0 ? '🚀' : countdown}
               </motion.span>
               <p className="text-white/40 mt-6 tracking-[0.3em] uppercase text-sm">
-                {countdown === 0 ? 'Launching...' : 'Initiating launch sequence'}
+                {countdown === 0 ? 'Entering orbit...' : 'Initiating launch sequence'}
               </p>
             </motion.div>
           )}

@@ -64,8 +64,9 @@ export default function HUD() {
             
             {/* Galaxy dots on minimap */}
             {galaxies.map((g) => {
-              const x = ((g.position[0] + 40) / 80) * 100
-              const y = ((g.position[1] + 30) / 60) * 100
+              // Map X (-50 to 50) and Z (-60 to 20) to radar
+              const x = ((g.position[0] + 50) / 100) * 100
+              const y = ((g.position[2] + 60) / 80) * 100
               const isActive = g.id === currentGalaxy
               return (
                 <div

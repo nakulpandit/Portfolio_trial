@@ -31,6 +31,7 @@ export default function InfoPanel() {
 
             {/* Title */}
             <h2 className="text-lg font-semibold text-white/90 mb-1 pr-8 glow-text">
+              {selectedItem.isResearch ? 'Academic Review: ' : ''}
               {selectedItem.title}
             </h2>
 
@@ -115,8 +116,8 @@ export default function InfoPanel() {
                 <a
                   href="/resume/Nakul Resume.pdf"
                   download="Nakul_Pandit_Resume.pdf"
-                  className="block w-full glass px-4 py-3 text-sm text-center text-white/80 hover:bg-white/10 
-                                   transition-all border border-[var(--color-star-gold)]/30 cursor-pointer"
+                  className="block w-full glass px-4 py-3 text-sm text-center text-white/90 hover:bg-white/10 
+                                   transition-all border border-[var(--color-star-gold)]/50 cursor-pointer glow-text"
                 >
                   📄 Download Resume (PDF)
                 </a>
@@ -131,9 +132,9 @@ export default function InfoPanel() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-xs py-2 rounded bg-white/5 text-white/70 
-                             hover:bg-white/10 transition-all border border-white/10"
+                             hover:bg-white/10 transition-all border border-white/10 cursor-pointer"
                 >
-                  ⭐ GitHub
+                  ⭐ GitHub Repo
                 </a>
               )}
               {selectedItem.link && (
@@ -142,10 +143,15 @@ export default function InfoPanel() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center text-xs py-2 rounded bg-[var(--color-nebula-purple)]/20 
-                             text-[var(--color-nebula-purple)] hover:bg-[var(--color-nebula-purple)]/30 transition-all"
+                             text-[var(--color-nebula-purple)] hover:bg-[var(--color-nebula-purple)]/30 transition-all cursor-pointer"
                 >
-                  View More →
+                  View Live →
                 </a>
+              )}
+              {selectedItem.fallbackLink && !selectedItem.github && !selectedItem.link && (
+                <div className="flex-1 text-center text-xs py-2 rounded bg-white/5 text-white/40 border border-white/5">
+                  {selectedItem.fallbackLink}
+                </div>
               )}
               {(selectedItem.detailedDescription || selectedItem.deepSummary || selectedItem.keyConcepts) && (
                 <button
