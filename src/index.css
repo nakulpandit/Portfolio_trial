@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-space-dark: #020010;
+  --color-space-deep: #060020;
+  --color-nebula-purple: #7b2ff7;
+  --color-nebula-blue: #2196f3;
+  --color-nebula-pink: #e040fb;
+  --color-star-gold: #ffd54f;
+  --color-star-white: #e8eaf6;
+  --color-panel-bg: rgba(10, 10, 40, 0.75);
+  --color-panel-border: rgba(123, 47, 247, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-space-dark);
+  color: var(--color-star-white);
+  font-family: var(--font-sans);
+  cursor: none;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: var(--color-panel-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-panel-border);
+  border-radius: 12px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-nebula-purple);
+  border-radius: 2px;
+}
+
+/* Glow text */
+.glow-text {
+  text-shadow: 0 0 10px rgba(123, 47, 247, 0.5), 0 0 40px rgba(123, 47, 247, 0.2);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
